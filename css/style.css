@@ -395,3 +395,115 @@ main {
     z-index: 10;
     padding: 60px 0;
 }
+
+/* ===================== PODCAST: PLAY + SOUNDWAVE ===================== */
+
+.podcast-item{
+  width: 300px;               /* mismo ancho que .card-notas */
+  max-width: 300px;
+  position: relative;
+}
+
+.podcast-item .card-podcast{
+  display: block;
+  position: relative;
+}
+
+/* Botón Play (círculo + triángulo) centrado sobre la imagen */
+.podcast-play{
+  position: absolute;
+  top: 150px;                 /* ajusta si tu imagen cambia de altura */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.45);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  z-index: 3;
+}
+
+.podcast-play:hover{
+  background: rgba(255,255,255,0.55);
+  transform: translate(-50%, -50%) scale(1.03);
+}
+
+/* Triángulo "play" */
+.podcast-play::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-45%, -50%); /* centra visual */
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 12px 0 12px 18px;
+  border-color: transparent transparent transparent rgba(0,0,0,0.7);
+}
+
+/* Cuando está reproduciendo, mostramos "pause" */
+.podcast-item.is-playing .podcast-play::after{
+  content:"";
+  width: 16px;
+  height: 22px;
+  border: 0;
+  background:
+    linear-gradient(to right,
+      rgba(0,0,0,0.75) 0 6px,
+      transparent 6px 10px,
+      rgba(0,0,0,0.75) 10px 16px
+    );
+  transform: translate(-50%, -50%);
+}
+
+/* Ondas debajo */
+.soundwave{
+  display: flex;
+  gap: 5px;
+  align-items: flex-end;
+  justify-content: center;
+  height: 22px;
+  margin-top: -8px;     /* acerca las ondas a la imagen */
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+
+/* Barritas */
+.soundwave span{
+  width: 4px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(240,48,51,0.9); /* rojo del sitio */
+  transform-origin: bottom;
+}
+
+/* Animación solo cuando está reproduciendo */
+.podcast-item.is-playing .soundwave span{
+  animation: waveMove 0.9s infinite ease-in-out;
+}
+
+/* Desfasajes para que se vea “vivo” */
+.soundwave span:nth-child(1){  animation-delay: 0s; }
+.soundwave span:nth-child(2){  animation-delay: .08s; }
+.soundwave span:nth-child(3){  animation-delay: .16s; }
+.soundwave span:nth-child(4){  animation-delay: .24s; }
+.soundwave span:nth-child(5){  animation-delay: .32s; }
+.soundwave span:nth-child(6){  animation-delay: .40s; }
+.soundwave span:nth-child(7){  animation-delay: .18s; }
+.soundwave span:nth-child(8){  animation-delay: .26s; }
+.soundwave span:nth-child(9){  animation-delay: .34s; }
+.soundwave span:nth-child(10){ animation-delay: .12s; }
+.soundwave span:nth-child(11){ animation-delay: .20s; }
+.soundwave span:nth-child(12){ animation-delay: .28s; }
+
+@keyframes waveMove{
+  0%   { transform: scaleY(0.6); }
+  25%  { transform: scaleY(1.6); }
+  50%  { transform: scaleY(0.9); }
+  75%  { transform: scaleY(2.1); }
+  100% { transform: scaleY(0.6); }
+}
